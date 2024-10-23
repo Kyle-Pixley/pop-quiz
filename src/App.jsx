@@ -18,7 +18,7 @@ function App() {
     if(sessionToken) {
       const timer = setTimeout(() => {
         fetchQuiz()
-      }, 6000);
+      }, 5001);
       return () => clearTimeout(timer);
     }
   },[sessionToken])
@@ -28,17 +28,23 @@ function App() {
     fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
     .then(res => res.json())
     .then(data => {
-      
-      console.log('this is the quiz ', data)
+      if(data.response_code === 0) {
+        setQuiz(data.results)
+      }
     })
     .catch(err => console.log(err))
   }
  
+  const displayQuestions = () => {
+    if(quiz) {
+      console.log(quiz)
+    }
+  }
   
 
   return (
     <>
-      
+      {displayQuestions()}
     </>
   )
 }
