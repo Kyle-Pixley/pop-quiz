@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import Question from './components/Question/Question.jsx';
+import Loading from './components/Loading/Loading.jsx';
 import './App.css';
 
 function App() {
 
   const [ sessionToken, setSessionToken ] = useState('');
   const [ quiz, setQuiz ] = useState("");
+  const [ startQuiz, setStartQuiz ] = useState(false);
 
   useEffect(() => {
     fetch(`https://opentdb.com/api_token.php?command=request`)
@@ -24,7 +27,7 @@ function App() {
   },[sessionToken])
   
   const fetchQuiz = () => {
-    console.log("useEffect")
+    console.log("fetchQuiz")
     fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
     .then(res => res.json())
     .then(data => {
@@ -34,19 +37,18 @@ function App() {
     })
     .catch(err => console.log(err))
   }
- 
-  const displayQuestions = () => {
-    if(quiz) {
-      console.log(quiz)
-    }
-  }
-  
 
   return (
-    <>
-      {displayQuestions()}
-    </>
+    <div id='app-component'>
+      {/* {startQuiz 
+        ? <Question quiz={quiz} /> 
+        :  */}
+          <Loading 
+            quiz={quiz}
+            setStartQuiz={setStartQuiz} />
+            {/* } */}
+    </div>
   )
 }
 
-export default App
+export default App;
