@@ -33,23 +33,23 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
 // organizes all the data of one right answer and three wrong answers to be put into shuffleArray()
   const shuffledArrayOfAnswers = () => {
-    const wrongAnswerOne = he.decode(quiz[questionNumber].incorrect_answers[0])
-      const wrongAnswerTwo = he.decode(quiz[questionNumber].incorrect_answers[1])
-      const wrongAnswerThree = he.decode(quiz[questionNumber].incorrect_answers[2])
-      const correctAnswer = he.decode(quiz[questionNumber].correct_answer)
-      
-      const arrayOfAnswers = [wrongAnswerOne, wrongAnswerTwo, wrongAnswerThree, correctAnswer];
-      console.log(arrayOfAnswers)
 
-      return shuffleArray(arrayOfAnswers);
+    const wrongAnswerOne = he.decode(quiz[questionNumber].incorrect_answers[0])
+    const wrongAnswerTwo = he.decode(quiz[questionNumber].incorrect_answers[1])
+    const wrongAnswerThree = he.decode(quiz[questionNumber].incorrect_answers[2])
+    const correctAnswer = he.decode(quiz[questionNumber].correct_answer)
+    
+    const arrayOfAnswers = [wrongAnswerOne, wrongAnswerTwo, wrongAnswerThree, correctAnswer];
+    return shuffleArray(arrayOfAnswers);
   }
 
 // reads wether the question is multiple choice, or true or false based on the value of the type property
   const whatTypeOfQuestion = () => {
 
-    const shuffledArray = shuffledArrayOfAnswers();
-
     if(quiz[questionNumber].type === 'multiple') {
+
+      const shuffledArray = shuffledArrayOfAnswers();
+
       return(
         <div id='multiple-choice-answer-parent'>
           <div className='answer-group'>
@@ -67,7 +67,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
         </div>
       )
-    } else if(quiz[questionNumber].type === 'boolean') {
+    } else {
       return (
         <div>
           <button onClick={() => handleAnswer('True')}
