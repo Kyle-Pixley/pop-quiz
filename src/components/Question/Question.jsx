@@ -59,18 +59,29 @@ function Question({ quiz }) {
 
     if(quiz[questionNumber].type === 'multiple') {
       return(
-        <div>
-          <button onClick={() => handleAnswer(shuffledArray[0])}>{shuffledArray[0]}</button>
-          <button onClick={() => handleAnswer(shuffledArray[1])}>{shuffledArray[1]}</button>
-          <button onClick={() => handleAnswer(shuffledArray[2])}>{shuffledArray[2]}</button>
-          <button onClick={() => handleAnswer(shuffledArray[3])}>{shuffledArray[3]}</button>
+        <div id='multiple-choice-answer-parent'>
+          <div className='answer-group'>
+            <button onClick={() => handleAnswer(shuffledArray[0])}
+              className='answer-buttons'>{shuffledArray[0]}</button>
+            <button onClick={() => handleAnswer(shuffledArray[1])}
+              className='answer-buttons'>{shuffledArray[1]}</button>
+          </div>
+          <div className='answer-group'>
+            <button onClick={() => handleAnswer(shuffledArray[2])}
+              className='answer-buttons'>{shuffledArray[2]}</button>
+            <button onClick={() => handleAnswer(shuffledArray[3])}
+              className='answer-buttons'>{shuffledArray[3]}</button>
+          </div>
+
         </div>
       )
     } else if(quiz[questionNumber].type === 'boolean') {
       return (
         <div>
-          <button onClick={() => handleAnswer('True')}>True</button>
-          <button onClick={() => handleAnswer('False')}>False</button>
+          <button onClick={() => handleAnswer('True')}
+            className='answer-buttons boolean-answer-buttons'>True</button>
+          <button onClick={() => handleAnswer('False')}
+            className='answer-buttons boolean-answer-buttons'>False</button>
         </div>
       )
     }
@@ -79,15 +90,15 @@ function Question({ quiz }) {
   const currentQuestion = () => {
     const decodedQuestion = decodeSentenceSymbols(quiz[questionNumber].question)
     return (
-      <h2>
+      <h2 id='current-question'>
         {decodedQuestion}
       </h2>)
   };
 
   return (
 
-    <div>
-        <h3>{correctAnswers}</h3>
+    <div id='question-container'>
+        <h3 id='correct-answers'>Score: {correctAnswers}</h3>
         {currentQuestion()}
         {whatTypeOfQuestion()}
     </div>
