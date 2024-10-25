@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
+//'HE' is used to decode html entities/character references when they are in string format 
+import he from 'he';
 import './Question.css';
 
-function Question({ quiz }) {
+function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
   const [ questionNumber, setQuestionNumber ] = useState(0);
-  const [ correctAnswers, setCorrectAnswers ] = useState(0);
 
-  const decodeSentenceSymbols = sentence => {
-    const symbols = {
-      '&quot;' : '"',
-      '&#039;' : "'",
-      '&rsquo;' : "'",
-      '&ldquo;' : '"',
-      '&rdquo;' : '"',
-    };
-    return sentence.replace(/&quot;|&#039;|&rsquo;|&ldquo;|&rdquo;/g, match => symbols[match])
-  }
-
+  //handles logic for when the answer the use gave is correct and add it to the score/correctAnswers, and handles logic when the user answered the final question 
   const handleAnswer = answer => {
 
     if(answer === quiz[questionNumber].correct_answer){
@@ -27,7 +18,7 @@ function Question({ quiz }) {
       setQuestionNumber(questionNumber + 1)
     } else {
       setQuestionNumber(0);
-      setCorrectAnswers(0);
+      setIsGameOver(true);
     }
   }
 
@@ -42,10 +33,10 @@ function Question({ quiz }) {
 
 // organizes all the data of one right answer and three wrong answers to be put into shuffleArray()
   const shuffledArrayOfAnswers = () => {
-    const wrongAnswerOne = quiz[questionNumber].incorrect_answers[0]
-      const wrongAnswerTwo = quiz[questionNumber].incorrect_answers[1]
-      const wrongAnswerThree = quiz[questionNumber].incorrect_answers[2]
-      const correctAnswer = quiz[questionNumber].correct_answer
+    const wrongAnswerOne = he.decode(quiz[questionNumber].incorrect_answers[0])
+      const wrongAnswerTwo = he.decode(quiz[questionNumber].incorrect_answers[1])
+      const wrongAnswerThree = he.decode(quiz[questionNumber].incorrect_answers[2])
+      const correctAnswer = he.decode(quiz[questionNumber].correct_answer)
       
       const arrayOfAnswers = [wrongAnswerOne, wrongAnswerTwo, wrongAnswerThree, correctAnswer];
       console.log(arrayOfAnswers)
@@ -53,6 +44,7 @@ function Question({ quiz }) {
       return shuffleArray(arrayOfAnswers);
   }
 
+// reads wether the question is multiple choice, or true or false based on the value of the type property
   const whatTypeOfQuestion = () => {
 
     const shuffledArray = shuffledArrayOfAnswers();
@@ -87,8 +79,9 @@ function Question({ quiz }) {
     }
   }
 
+// displays the current question based on what questionNumber the user is on also decodes the string coming from the data * see 'HE' package imported on this file 
   const currentQuestion = () => {
-    const decodedQuestion = decodeSentenceSymbols(quiz[questionNumber].question)
+    const decodedQuestion = he.decode(quiz[questionNumber].question)
     return (
       <h2 id='current-question'>
         {decodedQuestion}

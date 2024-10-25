@@ -13,6 +13,15 @@
     font-size: 800%;
     font-family: Impact,'Arial Narrow Bold', sans-serif;
 }
+#quiz-options-form {
+    
+}
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    font-size: 2vw;
+    font-weight: 600;
+}
 
 @keyframes slide-right {
     0% {

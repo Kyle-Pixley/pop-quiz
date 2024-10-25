@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Question from './components/Question/Question.jsx';
 import Loading from './components/Loading/Loading.jsx';
+import GameOver from './components/GameOver/GameOver.jsx';
 import './App.css';
 
 function App() {
@@ -8,6 +9,9 @@ function App() {
   const [ sessionToken, setSessionToken ] = useState('');
   const [ quiz, setQuiz ] = useState("");
   const [ startQuiz, setStartQuiz ] = useState(false);
+  const [ correctAnswers, setCorrectAnswers ] = useState(0);
+  const [ isGameOver, setIsGameOver ] = useState(false);
+  const [ quizDifficulty, setQuizDifficulty ] = useState('');
 
   useEffect(() => {
     fetch(`https://opentdb.com/api_token.php?command=request`)
@@ -27,7 +31,6 @@ function App() {
   },[sessionToken])
   
   const fetchQuiz = () => {
-    console.log("fetchQuiz")
     fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
     .then(res => res.json())
     .then(data => {
@@ -45,13 +48,27 @@ function App() {
     }
   },[quiz])
 
+  const whatDisplay = () => {
+    if (isGameOver) {
+      return <GameOver 
+              correctAnswers={correctAnswers}
+              setCorrectAnswers={setCorrectAnswers}
+              setStartQuiz={setStartQuiz}
+              setIsGameOver={setIsGameOver}/>
+    } else if (startQuiz) {
+      return <Question 
+              quiz={quiz} 
+              setIsGameOver={setIsGameOver} 
+              correctAnswers={correctAnswers} 
+              setCorrectAnswers={setCorrectAnswers}/>
+    } else return <Loading quiz={quiz} setStartQuiz={setStartQuiz} 
+                    quizDifficulty={quizDifficulty}
+                    setQuizDifficulty={setQuizDifficulty}/>
+  }
+
   return (
     <div id='app-component'>
-        {startQuiz 
-            ? <Question quiz={quiz} /> 
-            : <Loading 
-                quiz={quiz}
-                setStartQuiz={setStartQuiz} />}
+      {whatDisplay()}
     </div>
   )
 }
