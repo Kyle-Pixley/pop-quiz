@@ -31,6 +31,7 @@ function Question({ quiz }) {
     }
   }
 
+// shuffles the array of right and wrong answers to make it easier to make sure the correct answer is not always in the same spot on the page
   const shuffleArray = array => {
     for(let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -39,6 +40,7 @@ function Question({ quiz }) {
     return array;
   }
 
+// organizes all the data of one right answer and three wrong answers to be put into shuffleArray()
   const shuffledArrayOfAnswers = () => {
     const wrongAnswerOne = quiz[questionNumber].incorrect_answers[0]
       const wrongAnswerTwo = quiz[questionNumber].incorrect_answers[1]
