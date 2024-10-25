@@ -1,7 +1,8 @@
 import React from 'react';
+import LoadingBar from './LoadingBar/LoadingBar';
 import './StartGameButton.css';
 
-function StartGameButton({ quiz, setStartQuiz }) {
+function StartGameButton({ quiz, setStartQuiz, loadingBar }) {
 
     const startQuiz = () => {
         if(quiz) {
@@ -11,16 +12,15 @@ function StartGameButton({ quiz, setStartQuiz }) {
 
   return (
     <>
-    { quiz ? 
-        <button 
-            id='start-quiz-button'
-            className='start-quiz-button-spot'
-            onClick={startQuiz}>
-                Start Quiz
-        </button> 
-        : 
-        <div className='start-quiz-button-spot'></div>
-    }
+        {loadingBar ?
+            <LoadingBar /> : 
+            <button 
+                id='start-quiz-button'
+                className='start-quiz-button-spot'
+                onClick={startQuiz}>
+                    Start Quiz
+            </button> 
+        }
     </>
   )
 }

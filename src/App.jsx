@@ -12,6 +12,8 @@ function App() {
   const [ correctAnswers, setCorrectAnswers ] = useState(0);
   const [ isGameOver, setIsGameOver ] = useState(false);
   const [ quizDifficulty, setQuizDifficulty ] = useState('');
+  const [ quizCategory, setQuizCategory ] = useState('');
+  const [ loadingBar, setLoadingBar ] = useState(true);
 
   useEffect(() => {
     fetch(`https://opentdb.com/api_token.php?command=request`)
@@ -23,22 +25,24 @@ function App() {
 
   useEffect(() => {
     if(sessionToken) {
-      const timer = setTimeout(() => {
         fetchQuiz()
-      }, 5001);
-      return () => clearTimeout(timer);
     }
   },[sessionToken])
   
   const fetchQuiz = () => {
-    fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
-    .then(res => res.json())
-    .then(data => {
-      if(data.response_code === 0) {
-        setQuiz(data.results)
-      }
-    })
-    .catch(err => console.log(err))
+    const timer = setTimeout(() =>{
+      fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
+        .then(res => res.json())
+        .then(data => {
+          if(data.response_code === 0) {
+            setQuiz(data.results)
+            setLoadingBar(false);
+          }
+        })
+        .catch(err => console.log(err))
+    }, 5001);
+    return () => clearTimeout(timer);
+    
   }
 
   //! here 
@@ -61,9 +65,13 @@ function App() {
               setIsGameOver={setIsGameOver} 
               correctAnswers={correctAnswers} 
               setCorrectAnswers={setCorrectAnswers}/>
-    } else return <Loading quiz={quiz} setStartQuiz={setStartQuiz} 
+    } else return <Loading quiz={quiz} 
+                    setStartQuiz={setStartQuiz} 
                     quizDifficulty={quizDifficulty}
-                    setQuizDifficulty={setQuizDifficulty}/>
+                    setQuizDifficulty={setQuizDifficulty}
+                    quizCategory={quizCategory}
+                    setQuizCategory={setQuizCategory}
+                    loadingBar={loadingBar}/>
   }
 
   return (
