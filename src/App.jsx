@@ -28,15 +28,21 @@ function App() {
         fetchQuiz()
     }
   },[sessionToken])
-  
+
+  useEffect(() => {
+    console.log(quizDifficulty)
+  },[quizDifficulty])
+
   const fetchQuiz = () => {
+    //todo move fetch to trigger on start quiz button click 
     const timer = setTimeout(() =>{
-      fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}`)
+      fetch(`https://opentdb.com/api.php?amount=10&token=${sessionToken}&difficulty=${quizDifficulty}&category=${quizCategory}`)
         .then(res => res.json())
         .then(data => {
           if(data.response_code === 0) {
             setQuiz(data.results)
             setLoadingBar(false);
+            console.log(quizDifficulty, quizCategory)
           }
         })
         .catch(err => console.log(err))
