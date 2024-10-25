@@ -38,15 +38,20 @@ function App() {
     .catch(err => console.log(err))
   }
 
+  //! here 
+  useEffect(() => {
+    if(quiz) {
+      console.log(quiz)
+    }
+  },[quiz])
+
   return (
     <div id='app-component'>
-      {/* {startQuiz 
-        ? <Question quiz={quiz} /> 
-        :  */}
-          <Loading 
-            quiz={quiz}
-            setStartQuiz={setStartQuiz} />
-            {/* } */}
+        {startQuiz 
+            ? <Question quiz={quiz} /> 
+            : <Loading 
+                quiz={quiz}
+                setStartQuiz={setStartQuiz} />}
     </div>
   )
 }

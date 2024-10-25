@@ -4,6 +4,8 @@ import './Loading.css';
 
 function Loading({ quiz, setStartQuiz }) {
 
+    
+
   return (
     <div id='loading-component'>
         <h1 id='lets-play-title' className='loading-titles'>Let's Play</h1>
