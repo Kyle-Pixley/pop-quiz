@@ -4,10 +4,10 @@ import './Loading.css';
 
 function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCategory, setQuizCategory, fetchQuiz }) {
 
+// both these functions set quizCategory and quizDifficulty to what the user selects in the drop down options of the select element both values are handled within the URL of the API call in App.jsx
     const handleQuizDifficultyChange = e => {
         setQuizDifficulty(e.target.value);
     }
-    
     const handleQuizCategoryChange = e => {
         setQuizCategory(e.target.value);
     }
