@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoadingBar from './LoadingBar/LoadingBar';
 import './StartGameButton.css';
 
-function StartGameButton({ quiz, setStartQuiz, loadingBar }) {
+function StartGameButton({ quiz, setStartQuiz, fetchQuiz }) {
+
+    const [ loadingBar, setLoadingBar ] = useState(true);
 
     const startQuiz = () => {
-        if(quiz) {
-            setStartQuiz(true);
-        }
+            fetchQuiz();
     };
+
+    const disableLoadingBar = () => {
+        setLoadingBar(false);
+    }
+    setTimeout(disableLoadingBar, 5100);
+
 
   return (
     <>
@@ -17,7 +23,7 @@ function StartGameButton({ quiz, setStartQuiz, loadingBar }) {
             <button 
                 id='start-quiz-button'
                 className='start-quiz-button-spot'
-                onClick={startQuiz}>
+                onClick={() => startQuiz()}>
                     Start Quiz
             </button> 
         }

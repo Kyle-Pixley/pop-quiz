@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import StartGameButton from './StartGameButton/StartGameButton';
 import './Loading.css';
 
-function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCategory, setQuizCategory, loadingBar }) {
+function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCategory, setQuizCategory, fetchQuiz }) {
 
     const handleQuizDifficultyChange = e => {
         setQuizDifficulty(e.target.value);
@@ -15,8 +15,14 @@ function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCa
 
   return (
     <div id='loading-component'>
-        <h1 id='lets-play-title' className='loading-titles'>Let's Play</h1>
-        <h1 id='pop-quiz-title' className='loading-titles'>Pop Quiz</h1>
+        <div id='lets-play-title-container'>
+            <h1 id='lets-play-title-1' className='loading-titles'>Let's</h1>
+            <h1 id='lets-play-title-2' className='loading-titles'>Play</h1>
+        </div>
+        <div id='pop-quiz-title-container'>
+            <h1 id='pop-quiz-title-1' className='loading-titles'>Pop</h1>
+            <h1 id='pop-quiz-title-2' className='loading-titles'>Quiz</h1>
+        </div>
         <form id='quiz-options-form'>
             <div className='quiz-options'>
                 <label>Difficulty</label>
@@ -64,7 +70,7 @@ function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCa
             <StartGameButton 
                 quiz={quiz} 
                 setStartQuiz={setStartQuiz}
-                loadingBar={loadingBar}/>
+                fetchQuiz={fetchQuiz}/>
     </div>
   )
 }
