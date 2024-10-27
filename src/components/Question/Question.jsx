@@ -6,21 +6,26 @@ import './Question.css';
 function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
   const [ questionNumber, setQuestionNumber ] = useState(0);
+  const [ playerGuessed, setPlayerGuessed ] = useState(false);
 
-  //handles logic for when the answer the use gave is correct and add it to the score/correctAnswers, and handles logic when the user answered the final question 
+
   const handleAnswer = answer => {
 
-    if(answer === quiz[questionNumber].correct_answer){
-      setCorrectAnswers(correctAnswers + 1)
-    }
+    if(answer === quiz[questionNumber].correct_answer && playerGuessed === false){
+      setCorrectAnswers(correctAnswers + 1);
+      setPlayerGuessed(true);
+    } 
+  };
 
+  const handleNextQuestion = () => {
     if(questionNumber < 9) {
-      setQuestionNumber(questionNumber + 1)
+      setQuestionNumber(questionNumber + 1);
+      setPlayerGuessed(false);
     } else {
       setQuestionNumber(0);
       setIsGameOver(true);
     }
-  }
+  };
 
 // shuffles the array of right and wrong answers to make it easier to make sure the correct answer is not always in the same spot on the page
   const shuffleArray = array => {
@@ -45,7 +50,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
 // reads wether the question is multiple choice, or true or false based on the value of the type property
   const whatTypeOfQuestion = () => {
-
+    //todo array shuffles after an answer is given but before the next question is asked 
     if(quiz[questionNumber].type === 'multiple') {
 
       const shuffledArray = shuffledArrayOfAnswers();
@@ -94,6 +99,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
         <h3 id='correct-answers'>Score: {correctAnswers}</h3>
         {currentQuestion()}
         {whatTypeOfQuestion()}
+        {playerGuessed ? <button id='next-question-button' onClick={() => handleNextQuestion()}>Next</button> : null}
     </div>
   )
 }

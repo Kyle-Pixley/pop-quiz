@@ -35,3 +35,9 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+#next-question-button {
+    width: 18vw;
+    height: 4.5vw;
+    border-radius: 12px;
+    margin-top: 15px;
+}
