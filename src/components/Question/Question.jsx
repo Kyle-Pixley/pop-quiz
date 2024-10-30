@@ -73,6 +73,24 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
         return 'red'
       } else return null
   };
+  const handleGuessTrue = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if (guessedZero && !isCorrectAnswer) {
+        return 'red'
+      } else return null;
+  }
+  const handleGuessFalse = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if (guessedOne && !isCorrectAnswer) {
+        return 'red'
+      } else return null;
+  }
 
   const handleNextQuestion = () => {
     setGuessedZero(false);
@@ -140,10 +158,10 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
     } else {
       return (
         <div>
-          <button onClick={() => handleAnswer('True')}
-            className='answer-buttons boolean-answer-buttons'>True</button>
-          <button onClick={() => handleAnswer('False')}
-            className='answer-buttons boolean-answer-buttons'>False</button>
+          <button onClick={() => handleAnswer('True', 'zero')}
+            className={`answer-buttons boolean-answer-buttons ${handleGuessTrue('True')}`}>True</button>
+          <button onClick={() => handleAnswer('False', 'one')}
+            className={`answer-buttons boolean-answer-buttons ${handleGuessFalse('False')}`}>False</button>
         </div>
       )
     }

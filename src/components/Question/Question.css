@@ -37,9 +37,11 @@
 }
 .red {
     background-color: red;
+    border: none;
 }
 .green {
     background-color: green;
+    border: none;
 }
 #next-question-button {
     width: 18vw;
