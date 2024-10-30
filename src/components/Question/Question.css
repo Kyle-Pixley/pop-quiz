@@ -35,6 +35,12 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+.red {
+    background-color: red;
+}
+.green {
+    background-color: green;
+}
 #next-question-button {
     width: 18vw;
     height: 4.5vw;

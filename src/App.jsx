@@ -32,7 +32,6 @@ function App() {
           if(data.response_code === 0) {
             setQuiz(data.results)
             setStartQuiz(true);
-            console.log(quizDifficulty, quizCategory)
           }
         })
         .catch(err => console.log(err))

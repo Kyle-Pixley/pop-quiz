@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //'HE' is used to decode html entities/character references when they are in string format 
 import he from 'he';
 import './Question.css';
@@ -7,17 +7,78 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
   const [ questionNumber, setQuestionNumber ] = useState(0);
   const [ playerGuessed, setPlayerGuessed ] = useState(false);
+  const [ shuffledAnswers, setShuffledAnswers ] = useState([]);
+  const [ guessedZero, setGuessedZero ] = useState(false);
+  const [ guessedOne, setGuessedOne ] = useState(false);
+  const [ guessedTwo, setGuessedTwo ] = useState(false);
+  const [ guessedThree, setGuessedThree ] = useState(false);
 
+  useEffect(() => {
+    const shuffled = shuffledArrayOfAnswers();
+    setShuffledAnswers(shuffled);
+  }, [questionNumber])
 
-  const handleAnswer = answer => {
+  const handleAnswer = (answer, number) => {
+    setPlayerGuessed(true);
+
+    if(number === 'zero'){
+      setGuessedZero(true);
+    } else if (number === 'one') {
+      setGuessedOne(true);
+    } else if (number === 'two') {
+      setGuessedTwo(true);
+    } else if (number === 'three') {
+      setGuessedThree(true);
+    }
 
     if(answer === quiz[questionNumber].correct_answer && playerGuessed === false){
       setCorrectAnswers(correctAnswers + 1);
-      setPlayerGuessed(true);
-    } 
+
+    }
+  };
+  
+  const handleGuessZeroColor = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if(guessedZero && !isCorrectAnswer) {
+        return 'red'
+      } else return null
+  };
+  const handleGuessOneColor = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if(guessedOne && !isCorrectAnswer){
+        return 'red'
+      } else return null
+  };
+  const handleGuessTwoColor = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if(guessedTwo && !isCorrectAnswer) {
+        return 'red'
+      } else return null
+  };
+  const handleGuessThreeColor = answer => {
+    const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
+    const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
+      if(isCorrectAnswer && anyGuessMade) {
+        return 'green'
+      } else if (guessedThree && !isCorrectAnswer) {
+        return 'red'
+      } else return null
   };
 
   const handleNextQuestion = () => {
+    setGuessedZero(false);
+    setGuessedOne(false);
+    setGuessedTwo(false);
+    setGuessedThree(false);
     if(questionNumber < 9) {
       setQuestionNumber(questionNumber + 1);
       setPlayerGuessed(false);
@@ -39,10 +100,10 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 // organizes all the data of one right answer and three wrong answers to be put into shuffleArray()
   const shuffledArrayOfAnswers = () => {
 
-    const wrongAnswerOne = he.decode(quiz[questionNumber].incorrect_answers[0])
-    const wrongAnswerTwo = he.decode(quiz[questionNumber].incorrect_answers[1])
-    const wrongAnswerThree = he.decode(quiz[questionNumber].incorrect_answers[2])
-    const correctAnswer = he.decode(quiz[questionNumber].correct_answer)
+    const wrongAnswerOne = he.decode(quiz[questionNumber].incorrect_answers[0] || "");
+    const wrongAnswerTwo = he.decode(quiz[questionNumber].incorrect_answers[1] || "");
+    const wrongAnswerThree = he.decode(quiz[questionNumber].incorrect_answers[2] || "");
+    const correctAnswer = he.decode(quiz[questionNumber].correct_answer || "");
     
     const arrayOfAnswers = [wrongAnswerOne, wrongAnswerTwo, wrongAnswerThree, correctAnswer];
     return shuffleArray(arrayOfAnswers);
@@ -50,24 +111,28 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
 // reads wether the question is multiple choice, or true or false based on the value of the type property
   const whatTypeOfQuestion = () => {
-    //todo array shuffles after an answer is given but before the next question is asked 
     if(quiz[questionNumber].type === 'multiple') {
-
-      const shuffledArray = shuffledArrayOfAnswers();
-
       return(
         <div id='multiple-choice-answer-parent'>
           <div className='answer-group'>
-            <button onClick={() => handleAnswer(shuffledArray[0])}
-              className='answer-buttons'>{shuffledArray[0]}</button>
-            <button onClick={() => handleAnswer(shuffledArray[1])}
-              className='answer-buttons'>{shuffledArray[1]}</button>
+            <button 
+              onClick={() => handleAnswer(shuffledAnswers[0], 'zero')}
+              className={`answer-buttons ${handleGuessZeroColor(shuffledAnswers[0])}`}
+                >{shuffledAnswers[0]}</button>
+            <button 
+              onClick={() => handleAnswer(shuffledAnswers[1], 'one')}
+              className={`answer-buttons ${handleGuessOneColor(shuffledAnswers[1])}`}
+                >{shuffledAnswers[1]}</button>
           </div>
           <div className='answer-group'>
-            <button onClick={() => handleAnswer(shuffledArray[2])}
-              className='answer-buttons'>{shuffledArray[2]}</button>
-            <button onClick={() => handleAnswer(shuffledArray[3])}
-              className='answer-buttons'>{shuffledArray[3]}</button>
+            <button
+              onClick={() => handleAnswer(shuffledAnswers[2], 'two')}
+              className={`answer-buttons ${handleGuessTwoColor(shuffledAnswers[2])}`}
+                >{shuffledAnswers[2]}</button>
+            <button 
+              onClick={() => handleAnswer(shuffledAnswers[3], 'three')}
+              className={`answer-buttons ${handleGuessThreeColor(shuffledAnswers[3])}`}
+              >{shuffledAnswers[3]}</button>
           </div>
 
         </div>
