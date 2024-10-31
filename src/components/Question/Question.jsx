@@ -36,7 +36,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
 
     }
   };
-  
+  // handles the color of the button based on if it was the correct answer or the wrong on and ties it to a className for each answer button plus the true or false question answers
   const handleGuessZeroColor = answer => {
     const isCorrectAnswer = answer === quiz[questionNumber].correct_answer;
     const anyGuessMade = guessedZero || guessedOne || guessedTwo || guessedThree;
@@ -91,7 +91,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
         return 'red'
       } else return null;
   }
-
+//==============================================================
   const handleNextQuestion = () => {
     setGuessedZero(false);
     setGuessedOne(false);
