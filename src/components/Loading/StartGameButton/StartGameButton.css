@@ -6,6 +6,8 @@
     box-shadow: 12px 12px 12px rgba(0, 0, 0, .35), inset 12px 12px 12px white;
     transition: box-shadow .1s ease-in-out;
     border-radius: 100px;
+    color: black;
+    background-color: antiquewhite;
 }
 #start-quiz-button:active {
     box-shadow: 1px 1px 1px white, inset 12px 12px 12px rgba(0, 0, 0, .35);
@@ -18,9 +20,6 @@
     height: 15%;
     width: 15%;
     min-width: 200px;
-}
-@media (max-width: 400px) {
-    
 }
 
 @keyframes button-enter-stage-bottom {

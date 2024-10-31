@@ -14,6 +14,8 @@
 #current-question {
     font-size: 40px;
     text-align: center;
+    margin-left: 10vh;
+    margin-right: 10vh;
 }
 #multiple-choice-answer-parent {
     margin-top: 15vh;
@@ -23,12 +25,15 @@
     margin: 10px;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 .answer-buttons, .boolean-answer-buttons {
     width: 25vw;
     height: 4.5vw;
     border-radius: 12px;
     margin-top: 15px;
+    flex: 1;
+    padding: 10px;
 }
 .boolean-answer-buttons {
     margin-top: calc(25px + 15vh);
@@ -43,9 +48,38 @@
     background-color: green;
     border: none;
 }
-#next-question-button {
+#next-question-button, #next-question-button-placeholder {
     width: 18vw;
     height: 4.5vw;
     border-radius: 12px;
     margin-top: 15px;
+}
+@media (max-width: 500px) {
+    #current-question {
+        margin-right: 5vw;
+        margin-left: 5vw;
+    }
+    #multiple-choice-answer-parent {
+        margin-top: 0;
+    }
+    .answer-buttons, .boolean-answer-buttons {
+        width: 40vw;
+        height: fit-content;
+        min-height: 11vh;
+        padding: 8px;
+        font-size: 5vw;
+        color: black;
+    }
+    #next-question-button {
+        width: 40vw;
+        height: fit-content;
+        min-height: 11vh;
+        padding: 6px;
+        font-size: 5vw;
+        color: black;
+    }
+    #next-question-button-placeholder {
+        width: 40vw;
+        height: 11vh;
+    }
 }

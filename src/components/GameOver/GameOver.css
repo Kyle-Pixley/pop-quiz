@@ -13,12 +13,15 @@
     width: 25vw;
     height: 4.5vw;
     border-radius: 12px;
-    margin-top: 15px;
+    margin-top: 6vh;
+    font-size: 3vw;
 }
 @media (max-width: 500px) {
     #play-again-button {
-        height: 15vw;
-        width: 40vw;
+        height: 20vw;
+        width: 50vw;
+        font-size: 8vw;
         border-radius: 35px;
+        color: black;
     }
 }

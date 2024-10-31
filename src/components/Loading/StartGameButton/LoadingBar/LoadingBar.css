@@ -5,9 +5,12 @@
     height: 15%;
     width: 30%;
     min-width: 200px;
+    font-size: 2vw;
+    text-align: center;
 }
 #loading-bar {
     border: 1px solid black;
+    background-color: antiquewhite;
     width: 100%;
     height: 1.3em;
     overflow: hidden;
@@ -19,6 +22,12 @@
     width: 100%;
     height: 100%;
     animation: bar-loading 5s cubic-bezier(.2, .4, .4, 1) both;
+}
+@media (max-width: 500px) {
+    #loading-bar-container {
+        font-size: 7vw;
+        width: 70vw;
+    }
 }
 @keyframes bar-loading {
     0% {

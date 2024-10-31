@@ -182,7 +182,7 @@ function Question({ quiz, setIsGameOver, correctAnswers, setCorrectAnswers }) {
         <h3 id='correct-answers'>Score: {correctAnswers}</h3>
         {currentQuestion()}
         {whatTypeOfQuestion()}
-        {playerGuessed ? <button id='next-question-button' onClick={() => handleNextQuestion()}>Next</button> : null}
+        {playerGuessed ? <button id='next-question-button' onClick={() => handleNextQuestion()}>Next</button> : <div id='next-question-button-placeholder'></div>}
     </div>
   )
 }
