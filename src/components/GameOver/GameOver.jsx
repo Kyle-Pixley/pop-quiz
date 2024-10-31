@@ -15,9 +15,11 @@ function GameOver({ correctAnswers, setCorrectAnswers, setIsGameOver, setStartQu
         setStartQuiz(false);
     }
   return (
-    <div>
-        <h1>You Got {correctAnswers} question{pluralQuestionCorrect()} correct! </h1>
-        <button onClick={() => playAgain()}>Play Again?</button>
+    <div id='game-over-container'>
+        <h1 id='game-over-text'>You Got {correctAnswers} question{pluralQuestionCorrect()} correct! </h1>
+        <button 
+            id='play-again-button' 
+            onClick={() => playAgain()}>Play Again?</button>
     </div>
   )
 }

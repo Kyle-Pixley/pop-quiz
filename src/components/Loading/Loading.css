@@ -36,6 +36,20 @@
     font-size: 2vw;
     font-weight: 600;
 }
+@media (max-width: 500px) {
+    .loading-titles {
+        font-size: 23vw;
+    }
+    .options-labels {
+        font-size: 300%;
+        font-weight: 600;
+        text-align: center;
+    }
+    .options-select {
+        font-size: 250%;
+        margin: .5em;
+    }
+}
 
 @keyframes slide-right {
     0% {

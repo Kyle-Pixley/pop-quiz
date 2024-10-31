@@ -1,0 +1,24 @@
+#game-over-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#game-over-text {
+    font-size: 40px;
+    text-align: center;
+}
+#play-again-button {
+    width: 25vw;
+    height: 4.5vw;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+@media (max-width: 500px) {
+    #play-again-button {
+        height: 15vw;
+        width: 40vw;
+        border-radius: 35px;
+    }
+}

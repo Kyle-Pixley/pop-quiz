@@ -25,8 +25,8 @@ function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCa
         </div>
         <form id='quiz-options-form'>
             <div className='quiz-options'>
-                <label>Difficulty</label>
-                <select name='difficulty' 
+                <label className='options-labels'>Difficulty</label>
+                <select className='options-select' name='difficulty' 
                     value={quizDifficulty}
                     onChange={handleQuizDifficultyChange}>
                     <option value=''>Mixed</option>
@@ -36,8 +36,8 @@ function Loading({ quiz, setStartQuiz, quizDifficulty, setQuizDifficulty, quizCa
                 </select>
             </div>
             <div className='quiz-options'>
-                <label>Category</label>
-                <select name='category' 
+                <label className='options-labels'>Category</label>
+                <select className='options-select' name='category' 
                     onChange={handleQuizCategoryChange}>
                     <option value=''>Any Category</option>
                     <option value='9'>General Knowledge</option>
