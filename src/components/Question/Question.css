@@ -29,7 +29,8 @@
 }
 .answer-buttons, .boolean-answer-buttons {
     width: 25vw;
-    height: 4.5vw;
+    min-height: 4.5vw;
+    font-size: 1.4vw;
     border-radius: 12px;
     margin-top: 15px;
     flex: 1;
